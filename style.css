@@ -107,7 +107,13 @@ nav a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.profile-pic:hover{
       box-shadow: 5px 5px 20px 0px #e63946;
+      transform: translateY(-5px) scale(1.05) rotate(1deg);
+       z-index: 99999;
 }
 
 .profile-pic img {
@@ -356,5 +362,6 @@ p span {
     height: 120px;
   }
 }
+
 
 
