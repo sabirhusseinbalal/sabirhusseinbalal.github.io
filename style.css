@@ -11,15 +11,14 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
-
-  /* RED GRADIENT BACKGROUND */
-  background: radial-gradient(
+  /* background: radial-gradient(
     circle at center,
     rgba(255, 0, 0, 0.65) 0%,
     rgba(120, 0, 0, 0.85) 40%,
     rgba(60, 0, 0, 0.95) 70%,
     #000 100%
-  );
+  ); */
+    background-image: url(/OIP.webp);
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -247,7 +246,14 @@ p span {
   top: -10px;
   width: 5px;
   height: 5px;
-  background: white;
+  /* background: white; */
+    background: radial-gradient(
+    circle at center,
+    rgba(255, 0, 0, 0.65) 0%,
+    rgba(120, 0, 0, 0.85) 40%,
+    rgba(60, 0, 0, 0.95) 70%,
+    #000 100%
+  ); 
   border-radius: 50%;
   opacity: 0.8;
   animation-name: fall;
@@ -350,4 +356,5 @@ p span {
     height: 120px;
   }
 }
+
 
