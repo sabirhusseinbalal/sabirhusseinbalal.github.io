@@ -108,6 +108,7 @@ nav a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+      box-shadow: 5px 5px 20px 0px #e63946;
 }
 
 .profile-pic img {
@@ -349,3 +350,4 @@ p span {
     height: 120px;
   }
 }
+
