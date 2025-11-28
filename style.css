@@ -137,8 +137,12 @@ nav a:hover {
   color: #e63946;
   position: relative;
 }
+.right-box h1 span:nth-child(1) {
+  color: #e63946;
+  position: relative;
+}
 
-h1 span::after {
+h1 span:nth-child(1)::after {
   content: "";
   position: absolute;
   left: 0;
@@ -146,8 +150,40 @@ h1 span::after {
   width: 50%;
   height: 2px;
   background: #e63946;
-  z-index: -1;
+  z-index: 1;
   border-radius: 5px;
+}
+
+h1 span:nth-child(2) {
+  color: #fff;
+  position: relative;
+}
+
+h1 span:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  bottom: 0;
+  width: 2px;
+  height: 100%;
+  background: #e63946;
+  z-index: 1;
+  border-radius: 5px;
+  animation: bounce 1s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes bounce {
+  0% {
+    opacity: 0;
+  }
+  50% {
+     opacity: 1;
+  }
+  100% {
+     opacity: 0;
+
+  }
 }
 
 p span {
@@ -362,6 +398,7 @@ p span {
     height: 120px;
   }
 }
+
 
 
 
