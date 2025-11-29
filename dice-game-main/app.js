@@ -21,6 +21,7 @@
   let score = 0;
   let timeSec = 0;
   let timerId = null;
+  let isPaused = false;
   let isTimerRunning = false;
   let rolling = false; // prevent overlapping rolls
   let currentRotation = { x: 0, y: 0 };
@@ -49,6 +50,7 @@
       timerEl.textContent = formatTime(timeSec);
     }, 1000);
     isTimerRunning = true;
+      isPaused = false;
     pauseBtn.textContent = 'Pause';
   }
 
@@ -58,6 +60,7 @@
       timerId = null;
     }
     isTimerRunning = false;
+       isPaused = true;
     pauseBtn.textContent = 'Resume';
   }
 
@@ -65,6 +68,7 @@
     selectedNumber = null;
     score = 0;
     timeSec = 0;
+        isPaused = false;
     scoreValue.textContent = '0';
     timerEl.textContent = '0:00';
     statusEl.textContent = '......';
@@ -106,6 +110,7 @@
 
   // pause/resume (only timer)
   pauseBtn.addEventListener('click', () => {
+        isPaused = !isPaused;
     if (isTimerRunning) stopTimer();
     else startTimer();
     // IMPORTANT: do not disable UI; user can still select/roll while paused
@@ -125,13 +130,23 @@
 
   // dice rolling
   diceArea.addEventListener('click', () => {
+  
+      if (isPaused) {
+      statusEl.textContent = 'Please resume the game first';
+      statusEl.style.color = 'red';
+      return;
+    } else {
+      statusEl.style.color = '';
+    }
+
+
     if (rolling) return;                     // prevent overlapping
+    
     if (selectedNumber === null) {
       selectText.textContent = 'Please Select a Number';
       selectText.style.color = 'red';
       return;
     }
-
     rolling = true;
     // sound (ignore errors if not loaded)
     if (rollSound) { rollSound.currentTime = 0; rollSound.play().catch(()=>{}); }
@@ -208,3 +223,4 @@
   resetAll();
 
 })();
+
