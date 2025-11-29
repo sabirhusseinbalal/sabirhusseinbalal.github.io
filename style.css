@@ -38,6 +38,7 @@ body {
   border-radius: 25px;
   overflow: auto;
   padding: 20px;
+        overflow-x: hidden;
 }
 
 a {
@@ -126,6 +127,7 @@ nav a:hover {
 /* RIGHT SIDE */
 .right-box {
   flex: 1 1 400px;
+    width: 100%;
 }
 
 .right-box h1 {
@@ -398,6 +400,7 @@ p span {
     height: 120px;
   }
 }
+
 
 
 
