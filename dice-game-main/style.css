@@ -84,4 +84,92 @@ body{
   border: 2px solid #111;
 }
 
+.hearts {
+  margin: 10px 0;
+  text-align: center;
+}
 
+.heart {
+  font-size: 28px;
+  margin: 0 3px;
+  transition: transform 0.2s ease;
+}
+
+.heart:hover {
+  transform: scale(1.3);
+}
+
+/* Background blur when game over */
+.game-over-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* The popup card */
+.game-over-card {
+  background: #ffffff;
+  width: 300px;
+  padding: 28px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.35);
+  animation: popIn 0.25s ease-in-out;
+  color: #111;
+}
+
+.game-over-card h2 {
+  margin: 0;
+  font-size: 26px;
+  color: #c0392b;
+  font-weight: 800;
+}
+
+.final-score {
+  font-size: 38px;
+  font-weight: 900;
+  margin: 8px 0 18px;
+  color: #111;
+}
+
+/* Play Again Button */
+.go-btn {
+  background: #111;
+  color: #fff;
+  border: 0;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.go-btn:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+/* Animation */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
