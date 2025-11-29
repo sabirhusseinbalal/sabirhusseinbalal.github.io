@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dice Game — Simple</title>
   <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="/dice-game-main/files/main.png" type="image/x-icon">
+  <link rel="shortcut icon" href="/dice-game-main/files/main.png" type="image/x-icon">
+      <meta property="og:title" content="Dice Game" />
+    <meta property="og:image" content="/dice-game-main/files/main.png" />
+    <meta property="og:url" content="/dice-game-main/files/main.png" />
+    <meta property="og:type" content="website" />
 </head>
 <body>
 
@@ -18,6 +22,16 @@
     </div>
   </div>
 
+  <div id="gameOverOverlay" class="game-over-overlay hidden">
+  <div class="game-over-card">
+    <h2>Game Over</h2>
+    <p>Your Score:</p>
+    <div id="finalScore" class="final-score">0</div>
+
+    <button id="playAgainBtn" class="go-btn">Play Again</button>
+  </div>
+</div>
+
   <!-- GAME SCREEN -->
   <div id="game-screen" class="screen hidden">
     <div class="topbar">
@@ -29,6 +43,8 @@
     </div>
 
     <div id="status" class="status">......</div>
+    <div id="hearts" class="hearts"></div>
+
 
     <!-- number selection -->
     <div class="numbers" id="numbers">
@@ -68,4 +84,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-
