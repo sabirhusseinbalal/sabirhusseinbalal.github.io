@@ -14,17 +14,38 @@ let ran = 0;
 let player = "";
 let hearts = 5;
 let com = "";
-let gameTime = 0;
 let timerRunning = false;
 let timerInterval;
+let gameSeconds = 0;
 
+
+
+
+function formatTime(sec) {
+    let hrs = Math.floor(sec / 3600);
+    let mins = Math.floor((sec % 3600) / 60);
+    let secs = sec % 60;
+
+    if (hrs > 0) {
+        return (
+            String(hrs).padStart(2, "0") + ":" +
+            String(mins).padStart(2, "0") + ":" +
+            String(secs).padStart(2, "0")
+        );
+    }
+
+    return (
+        String(mins).padStart(2, "0") + ":" +
+        String(secs).padStart(2, "0")
+    );
+}
 
 function startTimer() {
     if (!timerRunning) {
         timerRunning = true;
         timerInterval = setInterval(() => {
-            gameTime++;
-            document.getElementById("timer").innerText = "Time: " + gameTime + "s";
+            gameSeconds++;
+            document.getElementById("timer").innerText = "Time: " + formatTime(gameSeconds);
         }, 1000);
     }
 }
@@ -39,7 +60,7 @@ function triggerGameOver() {
     stopTimer();
 
     // fill final values
-    document.getElementById("finalTime").innerText = gameTime + "s";
+    document.getElementById("finalTime").innerText = formatTime(gameSeconds);
     document.getElementById("finalWins").innerText = winScore.innerText;
     document.getElementById("finalLoses").innerText = loseScore.innerText;
     document.getElementById("finalDraws").innerText = drawScore.innerText;
@@ -75,23 +96,20 @@ scissors.onclick = () => { player = "scissors"; startTimer(); counter(); };
 
 
 document.getElementById("playAgainBtn").onclick = () => {
-
-    // reset values
     hearts = 5;
     winScore.innerText = 0;
     loseScore.innerText = 0;
     drawScore.innerText = 0;
     updateHearts();
 
-    gameTime = 0;
+    gameSeconds = 0;
+    timerRunning = false;
+    clearInterval(timerInterval);
+    document.getElementById("timer").innerText = "Time: 00:00";
 
-    // hide popup
     document.getElementById("gameOverOverlay").classList.add("hidden");
-
-    // re-enable game
     document.body.style.pointerEvents = "auto";
 };
-
 const counter = () => {
     let value = Number(countEl.innerText);
 
@@ -242,6 +260,7 @@ function resetRound() {
 }
 
 
+
 const snowContainer = document.querySelector('.snow');
 const snowflakeCount = 80; // number of snowflakes
 
@@ -265,5 +284,4 @@ for (let i = 0; i < snowflakeCount; i++) {
     snowflake.style.animationDelay = `${delay}s`;
 
     snowContainer.appendChild(snowflake);
-
 }
