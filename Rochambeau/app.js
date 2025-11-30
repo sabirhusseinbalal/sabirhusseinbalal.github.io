@@ -242,25 +242,6 @@ function resetRound() {
 }
 
 
-// =========================
-// BUTTON CLICK EVENTS
-// =========================
-rock.addEventListener("click", () => {
-    player = "rock";
-    counter();
-});
-
-paper.addEventListener("click", () => {
-    player = "paper";
-    counter();
-});
-
-scissors.addEventListener("click", () => {
-    player = "scissors";
-    counter();
-});
-
-
 const snowContainer = document.querySelector('.snow');
 const snowflakeCount = 80; // number of snowflakes
 
@@ -284,4 +265,5 @@ for (let i = 0; i < snowflakeCount; i++) {
     snowflake.style.animationDelay = `${delay}s`;
 
     snowContainer.appendChild(snowflake);
+
 }
