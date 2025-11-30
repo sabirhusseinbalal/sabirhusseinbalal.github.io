@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock–Paper–Scissors Game</title>
+    <link rel="stylesheet" href="style.css" />
+      <link rel="shortcut icon" href="/Rochambeau/rock-removebg-preview.png" type="image/x-icon">
+  </head>
+  <body>
+    <div class="body">
+      <h1>Rock–Paper–Scissors</h1>
+          <div id="hearts" class="hearts"></div>
+
+           <div class="middle" id="first">
+        <p>Select your choice</p>
+
+  <div class="choices">
+                <div class="choice" id="rock">
+                    <div class="title">Rock</div>
+                    <img src="/Rochambeau/rock-removebg-preview.png" alt="">
+                </div>
+
+                <div class="choice" id="paper">
+                    <div class="title">Paper</div>
+                    <img src="/Rochambeau/page-removebg-preview.png" alt="">
+                </div>
+
+                <div class="choice" id="scissors">
+                    <div class="title">Scissors</div>
+                    <img src="/Rochambeau/scissors-removebg-preview.png" alt="">
+                </div>
+            </div> 
+
+           
+
+      </div>
+ <div class="first hide" id="second">
+                <div class="board"> <img id="left-hand" src="/Rochambeau/rock-removebg-preview.png" alt="left" class="left">
+              <div class="result">
+                                <p id="msg">You vs Computer</p>
+                                <div class="count" id="count">4</div>
+              </div>
+              <img id="right-hand" src="/Rochambeau/rock-removebg-preview.png" alt="right" class="right"></div>
+             
+            </div>
+      <div class="down">
+        <div class="win">Win: <span id="win-score">0</span></div>
+        <div class="lose">Lose: <span id="lose-score">0</span></div>
+        <div class="draw">Draw: <span id="draw-score">0</span></div>
+      </div>
+      <div id="timer" class="timer">Time: 0s</div>
+    </div>
+
+    <div id="gameOverOverlay" class="game-over-overlay hidden">
+  <div class="game-over-card">
+    <h2>Game Over</h2>
+
+    <p>Your Time:</p>
+    <div id="finalTime" class="final-value">0s</div>
+
+    <p>Results:</p>
+    <div class="final-stats">
+      Wins: <span id="finalWins">0</span><br>
+      Losses: <span id="finalLoses">0</span><br>
+      Draws: <span id="finalDraws">0</span>
+    </div>
+
+    <button id="playAgainBtn" class="go-btn">Play Again</button>
+  </div>
+</div>
+
+    <div class="snow"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

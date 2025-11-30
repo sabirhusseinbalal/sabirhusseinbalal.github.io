@@ -1,0 +1,324 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #111;
+    padding: 20px;
+}
+
+.body {
+    background: #1a1a1adf;
+    color: #fff;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.middle p {
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+}
+
+/* CHOICES */
+.choices {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+}
+
+.choice {
+    background: #222;
+    border: 2px solid #d6bfa6;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    transition: 0.25s ease;
+}
+
+.choice:hover {
+    background: #2e2e2e;
+    transform: scale(1.05);
+}
+
+.choice img {
+    width: 80px;
+    height: auto;
+}
+
+/* GAME SCREEN */
+.board {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.left {
+    width: 100px;
+    transform: scaleX(-1);
+    animation: shake-left 0.6s ease-in-out infinite alternate;
+    transform-origin: center bottom;
+}
+
+@keyframes shake-left {
+    0% {
+        transform: scaleX(-1) translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: scaleX(-1) translateY(-6px) rotate(4deg);
+    }
+    100% {
+        transform: scaleX(-1) translateY(0) rotate(-4deg);
+    }
+}
+
+.right {
+    width: 100px;
+    animation: shake-right 0.6s ease-in-out infinite alternate;
+    transform-origin: center bottom;
+}
+
+@keyframes shake-right {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-6px) rotate(-4deg);
+    }
+    100% {
+        transform: translateY(0) rotate(4deg);
+    }
+}
+
+.first, #second {
+    transition: all 0.3s ease;
+}
+
+.hide {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+}
+
+/* COUNTER */
+.count {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.count.animate {
+    transform: scale(1.3);
+    transition: transform 0.2s ease;
+}
+
+/* SCORE BAR */
+.down {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.hearts{
+  margin: 10px 0;
+  text-align: center;
+}
+
+.heart{
+  font-size: 28px;
+  margin: 0 3px;
+  transition: transform 0.2s ease;
+}
+
+.heart:hover{
+  transform: scale(1.3);
+}
+
+/* GAME OVER OVERLAY */
+.game-over-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(7px);
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.game-over-card {
+  background: #ffffff;
+  width: 300px;
+  padding: 28px;
+  border-radius: 14px;
+  text-align: center;
+  color: #111;
+  box-shadow: 0px 12px 30px rgba(0,0,0,0.35);
+  animation: popIn 0.25s ease-in-out;
+}
+
+.game-over-card h2 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #c0392b;
+}
+
+.final-value {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.final-stats {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.go-btn {
+  background: #111;
+  color: #fff;
+  border: 0;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.go-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+
+
+}
+
+.timer {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  color: #d6bfa6;
+}
+
+
+
+.snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+/* Generate many snowflakes */
+.snowflake {
+  position: absolute;
+  top: -10px;
+  width: 5px;
+  height: 5px;
+  /* background: white; */
+    background:white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+@keyframes fall {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-100vw, 100vh) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 600px) {
+
+    .choices {
+        gap: 10px;
+    }
+
+    .choice img {
+        width: 60px;
+    }
+
+    .board img {
+        width: 80px;
+    }
+
+    .down {
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .choices {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .choice {
+        width: 80%;
+    }
+
+    .board {
+        flex-direction: column;
+    }
+}
+
+
