@@ -9,6 +9,7 @@ const rightHand = document.getElementById("right-hand");
 const leftHand = document.getElementById("left-hand");
 
 const countEl = document.getElementById("count");
+const reset = document.getElementById("reset");
 
 let ran = 0;
 let player = "";
@@ -18,253 +19,334 @@ let timerRunning = false;
 let timerInterval;
 let gameSeconds = 0;
 
+let activeTimers = [];
 
+// helper: push timeout and return id
+function pushTimeout(fn, delay) {
+  const id = setTimeout(fn, delay);
+  activeTimers.push(id);
+  return id;
+}
 
+// clear all pending timeouts
+function clearAllTimers() {
+  activeTimers.forEach(id => clearTimeout(id));
+  activeTimers = [];
+}
 
+// ------------- TIME FORMATTING & TIMER -------------
 function formatTime(sec) {
-    let hrs = Math.floor(sec / 3600);
-    let mins = Math.floor((sec % 3600) / 60);
-    let secs = sec % 60;
+  let hrs = Math.floor(sec / 3600);
+  let mins = Math.floor((sec % 3600) / 60);
+  let secs = sec % 60;
 
-    if (hrs > 0) {
-        return (
-            String(hrs).padStart(2, "0") + ":" +
-            String(mins).padStart(2, "0") + ":" +
-            String(secs).padStart(2, "0")
-        );
-    }
-
+  if (hrs > 0) {
     return (
-        String(mins).padStart(2, "0") + ":" +
-        String(secs).padStart(2, "0")
+      String(hrs).padStart(2, "0") + ":" +
+      String(mins).padStart(2, "0") + ":" +
+      String(secs).padStart(2, "0")
     );
+  }
+
+  return (
+    String(mins).padStart(2, "0") + ":" +
+    String(secs).padStart(2, "0")
+  );
 }
 
 function startTimer() {
-    if (!timerRunning) {
-        timerRunning = true;
-        timerInterval = setInterval(() => {
-            gameSeconds++;
-            document.getElementById("timer").innerText = "Time: " + formatTime(gameSeconds);
-        }, 1000);
-    }
+  if (!timerRunning) {
+    timerRunning = true;
+    timerInterval = setInterval(() => {
+      gameSeconds++;
+      const t = document.getElementById("timer");
+      if (t) t.innerText = "Time: " + formatTime(gameSeconds);
+    }, 1000);
+  }
 }
 
 function stopTimer() {
-    timerRunning = false;
-    clearInterval(timerInterval);
+  timerRunning = false;
+  clearInterval(timerInterval);
+  timerInterval = null;
 }
 
-
+// ------------- GAME OVER / UI -------------
 function triggerGameOver() {
-    stopTimer();
+  // stop timer and pending timeouts
+  stopTimer();
+  clearAllTimers();
 
-    // fill final values
-    document.getElementById("finalTime").innerText = formatTime(gameSeconds);
-    document.getElementById("finalWins").innerText = winScore.innerText;
-    document.getElementById("finalLoses").innerText = loseScore.innerText;
-    document.getElementById("finalDraws").innerText = drawScore.innerText;
+  // fill final values (guard elements exist)
+  const finalTimeEl = document.getElementById("finalTime");
+  if (finalTimeEl) finalTimeEl.innerText = formatTime(gameSeconds);
 
-    // show popup
-    document.getElementById("gameOverOverlay").classList.remove("hidden");
+  const finalWins = document.getElementById("finalWins");
+  const finalLoses = document.getElementById("finalLoses");
+  const finalDraws = document.getElementById("finalDraws");
 
-    // disable interaction
-    document.body.style.pointerEvents = "none";
-    document.getElementById("gameOverOverlay").style.pointerEvents = "auto";
+  if (finalWins) finalWins.innerText = (document.getElementById("win-score") || {innerText:0}).innerText;
+  if (finalLoses) finalLoses.innerText = (document.getElementById("lose-score") || {innerText:0}).innerText;
+  if (finalDraws) finalDraws.innerText = (document.getElementById("draw-score") || {innerText:0}).innerText;
+
+  // show popup
+  const overlay = document.getElementById("gameOverOverlay");
+  if (overlay) overlay.classList.remove("hidden");
+
+  // disable interaction behind overlay but keep overlay clickable
+  document.body.style.pointerEvents = "none";
+  if (overlay) overlay.style.pointerEvents = "auto";
 }
 
+// ------------- RESET BUTTON (STOP EVERYTHING & RESET UI) -------------
+reset.onclick = () => {
+  // Immediately stop everything (timeouts + timer)
+  clearAllTimers();
+  stopTimer();
 
-// =============== FIX HEART CHECK ===============
+  // Reset UI to initial state (same as fresh page)
+  // Hide second screen, show first screen
+  second.classList.add("hide");
+  first.classList.remove("hide");
+
+  // reset images and texts
+  leftHand.src = "/Rochambeau/rock-removebg-preview.png";
+  rightHand.src = "/Rochambeau/rock-removebg-preview.png";
+  msg.innerText = "You vs Computer";
+
+  // reset countdown
+  countEl.innerText = "4";
+  countEl.classList.remove("hide");
+
+  // reset stats
+  hearts = 5;
+  updateHearts();
+
+  const winScore = document.getElementById("win-score");
+  const loseScore = document.getElementById("lose-score");
+  const drawScore = document.getElementById("draw-score");
+
+  if (winScore) winScore.innerText = 0;
+  if (loseScore) loseScore.innerText = 0;
+  if (drawScore) drawScore.innerText = 0;
+
+  // reset timer display
+  gameSeconds = 0;
+  timerRunning = false;
+  document.getElementById("timer").innerText = "Time: 00:00";
+
+  // hide overlay if visible and re-enable interaction
+  const overlay = document.getElementById("gameOverOverlay");
+  if (overlay) overlay.classList.add("hidden");
+  document.body.style.pointerEvents = "auto";
+};
+
+// ------------- HEARTS UPDATE -------------
 function updateHearts() {
-    const heartContainer = document.getElementById("hearts");
-    heartContainer.innerHTML = "";
+  const heartContainer = document.getElementById("hearts");
+  if (!heartContainer) return;
+  heartContainer.innerHTML = "";
 
-    for (let i = 0; i < hearts; i++) {
+  for (let i = 0; i < hearts; i++) {
+    heartContainer.innerHTML += `<span class="heart">❤️</span>`;
+  }
+
+  // If hearts reach 0 → GAME OVER
+  if (hearts <= 0) {
+    // ensure hearts not negative
+    hearts = 0;
+    if (heartContainer) {
+      heartContainer.innerHTML = "";
+      for (let i = 0; i < hearts; i++) {
         heartContainer.innerHTML += `<span class="heart">❤️</span>`;
+      }
     }
-
-    // If hearts reach 0 → GAME OVER
-    if (hearts <= 0) {
-        triggerGameOver();
-    }
+    triggerGameOver();
+  }
 }
 
+// ------------- BUTTON HANDLERS -------------
 rock.onclick = () => { player = "rock"; startTimer(); counter(); };
 paper.onclick = () => { player = "paper"; startTimer(); counter(); };
 scissors.onclick = () => { player = "scissors"; startTimer(); counter(); };
 
-
-
+// Play Again button (inside overlay) — resets stats and hides overlay
 document.getElementById("playAgainBtn").onclick = () => {
-    hearts = 5;
-    winScore.innerText = 0;
-    loseScore.innerText = 0;
-    drawScore.innerText = 0;
-    updateHearts();
+  // clear pending timers + stop internal timer
+  clearAllTimers();
+  stopTimer();
 
-    gameSeconds = 0;
-    timerRunning = false;
-    clearInterval(timerInterval);
-    document.getElementById("timer").innerText = "Time: 00:00";
+  hearts = 5;
+  const winScore = document.getElementById("win-score");
+  const loseScore = document.getElementById("lose-score");
+  const drawScore = document.getElementById("draw-score");
 
-    document.getElementById("gameOverOverlay").classList.add("hidden");
-    document.body.style.pointerEvents = "auto";
+  if (winScore) winScore.innerText = 0;
+  if (loseScore) loseScore.innerText = 0;
+  if (drawScore) drawScore.innerText = 0;
+
+  updateHearts();
+
+  // reset timer and display
+  gameSeconds = 0;
+  timerRunning = false;
+  document.getElementById("timer").innerText = "Time: 00:00";
+
+  // hide overlay and re-enable main page interaction
+  const overlay = document.getElementById("gameOverOverlay");
+  if (overlay) overlay.classList.add("hidden");
+  document.body.style.pointerEvents = "auto";
 };
+
+// ------------- COUNTDOWN (counter) -------------
 const counter = () => {
-    let value = Number(countEl.innerText);
+  // If someone already reset/cleared, do nothing
+  // (activeTimers is cleared on reset/playAgain so pending timeouts won't call counter again)
+  let value = Number(countEl.innerText);
 
-    if (hearts <= 0) {
-        hearts = 0;
-        updateHearts();
-  
-        return; // stop game completely
-    }
+  if (hearts <= 0) {
+    hearts = 0;
+    updateHearts();
+    return; // stop game completely
+  }
 
-    // hide first screen, show second
-    first.classList.add("hide");
-    second.classList.remove("hide");
+  // show result screen area (countdown state)
+  first.classList.add("hide");
+  second.classList.remove("hide");
 
-    // choose computer random now
-    ran = Math.floor(Math.random() * 3);
+  // choose computer random now
+  ran = Math.floor(Math.random() * 3);
 
-    if (value > 0) {
-        value--;
+  if (value > 0) {
+    value--;
 
-        // animation
-        countEl.classList.add("animate");
-        setTimeout(() => countEl.classList.remove("animate"), 200);
+    // animation: remove after 200ms
+    countEl.classList.add("animate");
+    let t1 = setTimeout(() => countEl.classList.remove("animate"), 200);
+    activeTimers.push(t1);
 
-        countEl.innerText = value;
+    countEl.innerText = value;
 
-        setTimeout(counter, 800);
-    } else {
-        // countdown over → start game
-        countEl.classList.add("hide");
-        start();
-    }
+    // call counter again after 800ms (store id so we can clear)
+    let t2 = setTimeout(counter, 800);
+    activeTimers.push(t2);
+  } else {
+    // countdown over → start game
+    countEl.classList.add("hide");
+    start();
+  }
 };
 
-
-
-
-// =========================
-// GAME LOGIC + RESULTS
-// =========================
+// ------------- GAME LOGIC (start) -------------
 start = () => {
-    // computer choice image
-    if (ran == 0) {
-        com = "rock";
-        rightHand.src = "/Rochambeau/rock-removebg-preview.png";
-    } else if (ran == 1) {
-        com = "paper";
-        rightHand.src = "/Rochambeau/page-removebg-preview.png";
+  // If reset happened between scheduling and now, do nothing
+  // But since we clear timeouts on reset, this will rarely run after reset.
+  if (ran == 0) {
+    com = "rock";
+    rightHand.src = "/Rochambeau/rock-removebg-preview.png";
+  } else if (ran == 1) {
+    com = "paper";
+    rightHand.src = "/Rochambeau/page-removebg-preview.png";
+  } else {
+    com = "scissors";
+    rightHand.src = "/Rochambeau/scissors-removebg-preview.png";
+  }
+
+  // player image + result logic
+  if (player == "rock") {
+    leftHand.src = "/Rochambeau/rock-removebg-preview.png";
+
+    if (com == "paper") {
+      msg.innerText = "You: Rock | Computer: Paper → Paper wins";
+      addLose();
+    } else if (com == "scissors") {
+      msg.innerText = "You: Rock | Computer: Scissors → Rock wins (You win)";
+      addWin();
     } else {
-        com = "scissors";
-        rightHand.src = "/Rochambeau/scissors-removebg-preview.png";
+      msg.innerText = "You: Rock | Computer: Rock → Draw";
+      addDraw();
     }
+  } else if (player == "scissors") {
+    leftHand.src = "/Rochambeau/scissors-removebg-preview.png";
 
-    // player image
-    if (player == "rock") {
-        leftHand.src = "/Rochambeau/rock-removebg-preview.png";
-
-        if (com == "paper") {
-            msg.innerText = "You: Rock | Computer: Paper → Paper wins";
-            addLose();
-        } else if (com == "scissors") {
-            msg.innerText = "You: Rock | Computer: Scissors → Rock wins (You win)";
-            addWin();
-        } else {
-            msg.innerText = "You: Rock | Computer: Rock → Draw";
-            addDraw();
-        }
+    if (com == "rock") {
+      msg.innerText = "You: Scissors | Computer: Rock → Rock wins";
+      addLose();
+    } else if (com == "paper") {
+      msg.innerText = "You: Scissors | Computer: Paper → Scissors wins (You win)";
+      addWin();
+    } else {
+      msg.innerText = "You: Scissors | Computer: Scissors → Draw";
+      addDraw();
     }
+  } else if (player == "paper") {
+    leftHand.src = "/Rochambeau/page-removebg-preview.png";
 
-    else if (player == "scissors") {
-        leftHand.src = "/Rochambeau/scissors-removebg-preview.png";
-
-        if (com == "rock") {
-            msg.innerText = "You: Scissors | Computer: Rock → Rock wins";
-            addLose();
-        } else if (com == "paper") {
-            msg.innerText = "You: Scissors | Computer: Paper → Scissors wins (You win)";
-            addWin();
-        } else {
-            msg.innerText = "You: Scissors | Computer: Scissors → Draw";
-            addDraw();
-        }
+    if (com == "rock") {
+      msg.innerText = "You: Paper | Computer: Rock → Paper wins (You win)";
+      addWin();
+    } else if (com == "scissors") {
+      msg.innerText = "You: Paper | Computer: Scissors → Scissors wins";
+      addLose();
+    } else {
+      msg.innerText = "You: Paper | Computer: Paper → Draw";
+      addDraw();
     }
+  }
 
-    else if (player == "paper") {
-        leftHand.src = "/Rochambeau/page-removebg-preview.png";
-
-        if (com == "rock") {
-            msg.innerText = "You: Paper | Computer: Rock → Paper wins (You win)";
-            addWin();
-        } else if (com == "scissors") {
-            msg.innerText = "You: Paper | Computer: Scissors → Scissors wins";
-            addLose();
-        } else {
-            msg.innerText = "You: Paper | Computer: Paper → Draw";
-            addDraw();
-        }
-    }
-
-    // after showing result → reset for new game
-    setTimeout(resetRound, 2500);
+  // schedule resetRound after result; store timeout id
+  let tid = setTimeout(() => resetRound(), 2500);
+  activeTimers.push(tid);
 };
 
-
-// =========================
-// SCORE FUNCTIONS
-// =========================
+// ------------- SCORE HANDLERS -------------
 let winScore = document.getElementById("win-score");
 let loseScore = document.getElementById("lose-score");
 let drawScore = document.getElementById("draw-score");
 
 function addWin() {
-    if (hearts <= 4) {
-        hearts++;
-        updateHearts();
-    }
-    winScore.innerText = Number(winScore.innerText) + 1;
+  if (hearts <= 4) {
+    hearts++;
+    updateHearts();
+  }
+  if (winScore) winScore.innerText = Number(winScore.innerText) + 1;
 }
 
 function addLose() {
-    hearts--;
-    updateHearts();
-    loseScore.innerText = Number(loseScore.innerText) + 1;
+  hearts--;
+  updateHearts();
+  if (loseScore) loseScore.innerText = Number(loseScore.innerText) + 1;
 }
 
 function addDraw() {
-       updateHearts();
-    drawScore.innerText = Number(drawScore.innerText) + 1;
+  // current design: draw doesn't change hearts (if you want different logic, change here)
+  updateHearts();
+  if (drawScore) drawScore.innerText = Number(drawScore.innerText) + 1;
 }
 
-
-// =========================
-// RESET FOR NEW ROUND
-// =========================
+// ------------- RESET FOR NEW ROUND -------------
 function resetRound() {
-    second.classList.add("hide");     // hide result screen
-    first.classList.remove("hide");   // show choice screen
+  // if overlay is visible or we cleared timers, we may not want to continue
+  // but clearing timers already prevents this function from being called if reset was pressed.
+  second.classList.add("hide");     // hide result screen
+  first.classList.remove("hide");   // show choice screen
 
-    // reset countdown text back to 4
-    countEl.innerText = "4";
-    countEl.classList.remove("hide");
+  // reset countdown text back to 4
+  countEl.innerText = "4";
+  countEl.classList.remove("hide");
 
-    // img reset
-     leftHand.src = "/Rochambeau/rock-removebg-preview.png";
-     rightHand.src = "/Rochambeau/rock-removebg-preview.png";
+  // img reset
+  leftHand.src = "/Rochambeau/rock-removebg-preview.png";
+  rightHand.src = "/Rochambeau/rock-removebg-preview.png";
 
-    msg.innerText = "You vs Computer";
+  msg.innerText = "You vs Computer";
 }
 
-
-
+// ------------- SNOW EFFECT (visual only) -------------
 const snowContainer = document.querySelector('.snow');
-const snowflakeCount = 80; // number of snowflakes
-
-for (let i = 0; i < snowflakeCount; i++) {
+if (snowContainer) {
+  const snowflakeCount = 80; // number of snowflakes
+  for (let i = 0; i < snowflakeCount; i++) {
     const snowflake = document.createElement('div');
     snowflake.classList.add('snowflake');
 
@@ -284,4 +366,5 @@ for (let i = 0; i < snowflakeCount; i++) {
     snowflake.style.animationDelay = `${delay}s`;
 
     snowContainer.appendChild(snowflake);
+  }
 }
