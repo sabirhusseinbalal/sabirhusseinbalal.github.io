@@ -278,6 +278,7 @@ p span {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+    position: relative;
   justify-content: center;
 }
 
@@ -290,7 +291,19 @@ p span {
   background: #111;
   cursor: pointer;
 }
+.moregames{
+  font-size: medium;
+  font-weight: bold;
+  color: #e63946;
+  text-align: center;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: absolute;
+    bottom: -100px;
 
+}
 .game img {
   width: 100%;
   height: 100%;
@@ -423,26 +436,11 @@ p span {
   }
 }
 
-/* MOBILE */
-@media (max-width: 700px) {
-  .profile-pic {
-    width: 220px;
-    height: 220px;
-  }
-
-  .right-box h1 {
-    font-size: 32px;
-  }
-
-  .game {
-    width: 120px;
-    height: 120px;
-  }
-}
 
 
 
-media (max-width: 1200px) {
+
+@media (max-width: 1200px) {
   .icons {
     grid-template-columns: repeat(8, 1fr);
   }
@@ -468,7 +466,22 @@ media (max-width: 1200px) {
     height: 120px;
   }
 }
+/* MOBILE */
+@media (max-width: 700px) {
+  .profile-pic {
+    width: 220px;
+    height: 220px;
+  }
 
+  .right-box h1 {
+    font-size: 32px;
+  }
+
+  .game {
+    width: 120px;
+    height: 120px;
+  }
+}
 /* Small Phones */
 @media (max-width: 500px) {
   .icons {
@@ -489,3 +502,4 @@ media (max-width: 1200px) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
