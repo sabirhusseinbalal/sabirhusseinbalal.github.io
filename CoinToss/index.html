@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Coin Toss — Heads or Tails</title>
+  <meta name="description" content="Simple responsive Coin Toss game" />
+     <link rel="shortcut icon" href="/CoinToss/Capture.PNG" type="image/x-icon">
+
+  <style>
+    :root{
+      --bg: #0f172a;
+      --card: linear-gradient(180deg,#0ea5a4 0%, #06b6d4 100%);
+      --muted: rgba(255,255,255,0.75);
+      --glass: rgba(255,255,255,0.06);
+      --radius: 16px;
+      --max-width: 720px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(14,165,164,0.08), transparent),
+                  radial-gradient(900px 500px at 90% 90%, rgba(6,182,212,0.06), transparent),
+                  var(--bg);
+      color:#eef2ff;
+      -webkit-font-smoothing:antialiased;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+
+    .logo{
+      width:64px;height:64px;
+      border-radius:12px;
+      background:var(--card);
+      display:grid;
+      place-items:center;
+      box-shadow:0 6px 18px rgba(2,6,23,0.6);
+    }
+
+    .logo svg{width:36px;height:36px}
+
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    .game{
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:20px;
+      align-items:start;
+    }
+
+    @media (max-width:780px){
+      .game{grid-template-columns: 1fr;}
+    }
+
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:20px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .play-area{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:center;
+      justify-content:center;
+      padding:36px 16px;
+    }
+
+    /* Coin */
+    .coin-wrap{display:grid;place-items:center}
+
+    .coin{
+      --size:160px;
+      width:var(--size);height:var(--size);
+      border-radius:50%;
+      background: conic-gradient(from 180deg at 50% 50%, #ffd54a 0deg, #ffe89a 45deg, #ffd54a 90deg, #fffaf0 180deg);
+      display:grid;place-items:center;
+      position:relative;
+      box-shadow:0 12px 30px rgba(2,6,23,0.6), 0 6px 12px rgba(0,0,0,0.45) inset;
+      transition: transform 800ms cubic-bezier(.2,.9,.3,1);
+      transform-style: preserve-3d;
+    }
+
+    .coin:hover { transform: scale(1.05); }
+
+    .coin .side{
+      width:86%;height:86%;
+      border-radius:50%;
+      display:grid;place-items:center;
+      font-weight:700;
+      font-size:22px;
+      color:#2b2b2b;
+      backface-visibility:hidden;
+      transform: translateZ(1px);
+    }
+
+    .coin .heads{background:transparent}
+    .coin .tails{background:transparent;transform: rotateY(180deg)}
+
+    .coin.tossing{
+      transform: rotateX(1080deg) rotateY(720deg);
+    }
+
+    /* Result */
+    .result{
+      text-align:center;
+      padding:12px 8px;
+      border-radius:10px;
+      min-height:56px;
+      display:grid;
+      place-items:center;
+    }
+
+    .result .text{font-size:18px;font-weight:700}
+    .result .sub{font-size:13px;color:var(--muted);margin-top:6px}
+
+    /* Buttons */
+    .controls{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .btn-row{
+      display:flex;
+      gap:12px;
+    }
+
+    button.btn{
+      flex:1;
+      padding:12px 14px;
+      border-radius:12px;
+      border:0;
+      background:linear-gradient(180deg,#1f2937,#111827);
+      color:#fff;
+      font-weight:700;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(2,6,23,0.6);
+      transition: transform .15s, opacity .15s;
+    }
+
+    button.btn:hover{opacity:0.9;transform:translateY(-1px)}
+    button.btn:active{transform:translateY(2px)}
+
+    button.primary{
+      background:linear-gradient(180deg,#06b6d4,#0ea5a4);
+      color:#042023;
+    }
+
+    button.ghost{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Stats */
+    .stats{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .stat{
+      background:var(--glass);
+      padding:8px 10px;
+      border-radius:10px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* Time + hearts */
+    .section{margin: 20px 0;}
+
+    .time{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      font-size:1.2rem;
+      font-weight:700;
+      padding:6px 0;
+      position:relative;
+      color:#fff;
+      margin-bottom:10px;
+    }
+
+    .time::after, .time::before{
+      content:"";
+      position:absolute;
+      left:0;
+      width:100%;
+      height:1px;
+      background-color:var(--muted);
+    }
+
+    .time::before{top:0}
+    .time::after{bottom:0}
+
+    .hearts{
+      margin:10px 0;
+      text-align:center;
+    }
+
+    .heart{
+      font-size:28px;
+      margin:0 3px;
+      transition:.2s;
+    }
+
+    .heart:hover{transform:scale(1.3)}
+
+    .sr-only{
+      position:absolute;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+
+  .flip-heads {
+  animation: flipHeads 1.2s ease-out forwards;
+}
+
+@keyframes flipHeads {
+  0%   { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(1800deg) rotateY(360deg); }
+}
+
+/* Flip to TAILS */
+.flip-tails {
+  animation: flipTails 1.2s ease-out forwards;
+}
+
+@keyframes flipTails {
+  0%   { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(1980deg) rotateY(540deg); }
+}
+
+
+/* Container */
+.stat {
+  position: relative;
+}
+
+/* +1 (green) */
+.stat .plus {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  color: green;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+/* -1 (red) */
+.stat .minus {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+/* Active animation */
+.stat .show {
+  opacity: 1 !important;
+  transform: translateY(-8px);
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container" role="application" aria-label="Coin toss game">
+
+    <header>
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" fill="#fff3c4"/>
+          <circle cx="12" cy="12" r="5" fill="#ffd54a"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Coin Toss</h1>
+        <p class="lead">Heads or Tails — choose a side and toss the coin.</p>
+      </div>
+    </header>
+
+    <main class="game">
+
+      <!-- PLAY AREA -->
+      <section class="panel play-area">
+        <div class="coin-wrap">
+          <div id="coin" class="coin">
+            <div class="side heads">Heads</div>
+            <div class="side">Tails</div>
+          </div>
+        </div>
+
+        <div id="result" class="result">
+          <div class="text">Ready to toss</div>
+          <div class="sub">Pick Heads or Tails to start</div>
+        </div>
+
+        <button id="quickToss" class="btn ghost">Quick Toss</button>
+      </section>
+
+      <!-- CONTROLS -->
+      <aside class="panel controls">
+
+        <div class="btn-row">
+          <button id="headsBtn" class="btn primary">Heads</button>
+          <button id="tailsBtn" class="btn">Tails</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat">Tosses: <span id="statTosses">0</span>
+  <span class="plus">+1</span>
+  <span class="minus">-1</span>
+</div>
+          <div class="stat">Heads: <span id="statHeads">0</span></div>
+          <div class="stat">Tails: <span id="statTails">0</span></div>
+                  <div class="stat">Wins: <span id="statwins">0</span>
+  <span class="plus">+1</span>
+  <span class="minus">-1</span>
+</div>
+
+<div class="stat">Losses: <span id="statlosses">0</span>
+  <span class="plus">+1</span>
+  <span class="minus">-1</span>
+</div>
+        </div>
+
+
+
+
+
+        <button id="resetBtn" class="btn ghost">Reset Stats</button>
+
+        <div class="section">
+          <div class="time">
+            <div class="label">Time</div>
+            <div id="timer">00:00</div>
+          </div>
+          <div id="hearts" class="hearts"></div>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
