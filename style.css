@@ -399,14 +399,18 @@ p span {
   content: "facebook";
 }
 
-.icons a:nth-child(5):after {
+.icons a:nth-child(2):after {
   content: "github";
 }
-.icons a:nth-child(6):after {
+.icons a:nth-child(3):after {
   content: "linkedin";
 }
-.icons a:nth-child(7):after {
+.icons a:nth-child(4):after {
   content: "steam";
+}
+
+.icons a:nth-child(5):after {
+  content: "youtube";
 }
 
 /* Falling animation from top-right to bottom-left */
@@ -487,5 +491,6 @@ p span {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 
 
