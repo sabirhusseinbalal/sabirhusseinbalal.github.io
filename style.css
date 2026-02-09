@@ -399,18 +399,6 @@ p span {
   content: "facebook";
 }
 
-.icons a:nth-child(2):after {
-  content: "instagram";
-}
-
-.icons a:nth-child(3):after {
-  content: "twitter";
-}
-
-.icons a:nth-child(4):after {
-  content: "tiktok";
-}
-
 .icons a:nth-child(5):after {
   content: "github";
 }
@@ -419,9 +407,6 @@ p span {
 }
 .icons a:nth-child(7):after {
   content: "steam";
-}
-.icons a:nth-child(8):after {
-  content: "discord";
 }
 
 /* Falling animation from top-right to bottom-left */
@@ -502,4 +487,5 @@ p span {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 
