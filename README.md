@@ -1,6 +1,7 @@
 ## Games
 
-* **[Coin Toss<img src="CoinToss/Capture.PNG" width="150" alt="Coin Toss Logo">](https://sabirhusseinbalal.github.io/CoinToss/index.html)**  
+* **[Coin Toss <img src="CoinToss/Capture.PNG" width="150" alt="Coin Toss Logo">
+](https://sabirhusseinbalal.github.io/CoinToss/index.html)**  
   
   
 * **[Dice Game](https://sabirhusseinbalal.github.io/dice-game-main/index.html)**  
