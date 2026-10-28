@@ -14,5 +14,5 @@
 ---
 
 ## 🛠️ Built With
-* **HTML5** & **CSS3**
+* **HTML** & **CSS**
 * **JavaScript**
