@@ -1,18 +1,47 @@
-## Games
-
-**[<img src="CoinToss/Capture.PNG" width="150" alt="Coin Toss Logo">](https://sabirhusseinbalal.github.io/CoinToss/index.html)**  
+# Small Browser Games
 
 
-**[<img src="dice-game-main/files/main.png" width="150" alt="Dice Game Logo">](https://sabirhusseinbalal.github.io/dice-game-main/index.html)**  
+**[Play all games on my website](https://sabirhusseinbalal.github.io/)**
 
-
-**[<img src="GuessNumber/logo.PNG" width="150" alt="Guess Number Logo">  ](https://sabirhusseinbalal.github.io/GuessNumber/index.html)**  
-
-
-**[<img src="Rochambeau/logo.PNG" width="150" alt="Rochambeau Logo"> ](https://sabirhusseinbalal.github.io/Rochambeau/index.html)**  
-   
----
-
-## 🛠️ Built With
-* **HTML** & **CSS**
-* **JavaScript**
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://sabirhusseinbalal.github.io/CoinToss/">
+        <img src="https://raw.githubusercontent.com/sabirhusseinbalal/sabirhusseinbalal.github.io/main/CoinToss/Capture.PNG" alt="Coin Toss game" width="180">
+      </a>
+      <br>
+      <strong><a href="https://sabirhusseinbalal.github.io/CoinToss/">Coin Toss</a></strong>
+      <br>
+      Choose heads or tails and toss the coin.
+    </td>
+    <td align="center" width="50%">
+      <a href="https://sabirhusseinbalal.github.io/GuessNumber/">
+        <img src="https://raw.githubusercontent.com/sabirhusseinbalal/sabirhusseinbalal.github.io/main/GuessNumber/logo.PNG" alt="Guess the Number game" width="180">
+      </a>
+      <br>
+      <strong><a href="https://sabirhusseinbalal.github.io/GuessNumber/">Guess the Number</a></strong>
+      <br>
+      Try to find the secret number.
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://sabirhusseinbalal.github.io/Rochambeau/">
+        <img src="https://raw.githubusercontent.com/sabirhusseinbalal/sabirhusseinbalal.github.io/main/Rochambeau/logo.PNG" alt="Rock Paper Scissors game" width="180">
+      </a>
+      <br>
+      <strong><a href="https://sabirhusseinbalal.github.io/Rochambeau/">Rock–Paper–Scissors</a></strong>
+      <br>
+      Play the classic hand game.
+    </td>
+    <td align="center" width="50%">
+      <a href="https://sabirhusseinbalal.github.io/dice-game-main/">
+        <img src="https://raw.githubusercontent.com/sabirhusseinbalal/sabirhusseinbalal.github.io/main/dice-game-main/files/main.png" alt="Dice Game" width="180">
+      </a>
+      <br>
+      <strong><a href="https://sabirhusseinbalal.github.io/dice-game-main/">Dice Game</a></strong>
+      <br>
+      Roll the dice and play.
+    </td>
+  </tr>
+</table>
