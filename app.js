@@ -56,6 +56,8 @@ async function loadGames() {
                 const link = document.createElement('a');
                 link.className = 'play-link';
                 link.href = game.url;
+                link.target = '_blank';                  // opens in a new tab
+                link.rel = 'noopener noreferrer';
                 link.textContent = 'Play →';
 
                 card.append(info, link);
@@ -70,6 +72,16 @@ async function loadGames() {
                 const card = document.createElement('div');
                 card.className = 'contributor';
 
+                // profile picture from GitHub
+                const avatar = document.createElement('img');
+                avatar.src = 'https://github.com/' + encodeURIComponent(person.username) + '.png?size=112';
+                avatar.alt = person.username + ' profile picture';
+                avatar.width = 56;
+                avatar.height = 56;
+                avatar.loading = 'lazy';
+
+                const info = document.createElement('div');
+
                 const name = document.createElement('h3');
                 name.textContent = person.username;
 
@@ -79,7 +91,8 @@ async function loadGames() {
                 link.rel = 'noopener noreferrer';
                 link.textContent = 'View profile →';
 
-                card.append(name, link);
+                info.append(name, link);
+                card.append(avatar, info);
                 contributorList.appendChild(card);
             });
         }
