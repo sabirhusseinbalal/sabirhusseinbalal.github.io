@@ -315,6 +315,10 @@ a {
 }
 
 .contributor {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
     padding: 22px;
 
     background: var(--card);
@@ -343,6 +347,14 @@ a {
     color: var(--red);
 }
 
+.contributor img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--red);
+    flex-shrink: 0;
+}
 
 /* ABOUT SECTION */
 
@@ -484,10 +496,14 @@ a {
         padding: 90px 15px 70px;
     }
 
-    .stats {
-        gap: 10px;
-        margin-bottom: 60px;
-    }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    max-width: 560px;
+    margin: 0 auto 100px;
+}
 
     .stat h2 {
         font-size: 26px;
