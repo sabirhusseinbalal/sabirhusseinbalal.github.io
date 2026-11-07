@@ -1,0 +1,103 @@
+name: Update Game Collection
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "games/**"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-games:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate game collection
+        run: |
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          games_folder = Path("games")
+          games = []
+          contributors = set()
+
+          required_files = {"index.html", "style.css", "script.js"}
+
+          if games_folder.exists():
+              for user_folder in sorted(games_folder.iterdir()):
+
+                  if not user_folder.is_dir():
+                      continue
+
+                  username = user_folder.name
+
+                  for game_folder in sorted(user_folder.iterdir()):
+
+                      if not game_folder.is_dir():
+                          continue
+
+                      files = list(game_folder.iterdir())
+
+                      if not all(file.is_file() for file in files):
+                          continue
+
+                      if {file.name for file in files} != required_files:
+                          continue
+
+                      html = (game_folder / "index.html").read_text(encoding="utf-8", errors="ignore")
+                      match = re.search(r"<title>(.*?)</title>", html, re.I | re.S)
+                      title = match.group(1).strip() if match else ""
+
+                      games.append({
+                          "name": title or game_folder.name.replace("-", " ").title(),
+                          "author": username,
+                          "url": f"games/{username}/{game_folder.name}/"
+                      })
+
+                      contributors.add(username)
+
+          data = {
+              "games": games,
+              "contributors": [
+                  {
+                      "username": username,
+                      "profile": f"https://github.com/{username}"
+                  }
+                  for username in sorted(contributors)
+              ],
+              "totalGames": len(games),
+              "totalContributors": len(contributors)
+          }
+
+          output = Path("data/games.json")
+          output.parent.mkdir(parents=True, exist_ok=True)
+          output.write_text(json.dumps(data, indent=4) + "\n", encoding="utf-8")
+
+          print("Game collection updated!")
+          print("Games:", len(games))
+          print("Contributors:", len(contributors))
+          PY
+
+      - name: Commit updated collection
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add data/games.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update game collection"
+            git push
+          fi
