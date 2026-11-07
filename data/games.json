@@ -1,6 +1,17 @@
 {
-    "games": [],
-    "contributors": [],
-    "totalGames": 0,
-    "totalContributors": 0
+    "games": [
+        {
+            "name": "TIC TAC TOE",
+            "author": "sabirhusseinbalal",
+            "url": "games/sabirhusseinbalal/tic-tac-toe/"
+        }
+    ],
+    "contributors": [
+        {
+            "username": "sabirhusseinbalal",
+            "profile": "https://github.com/sabirhusseinbalal"
+        }
+    ],
+    "totalGames": 1,
+    "totalContributors": 1
 }
