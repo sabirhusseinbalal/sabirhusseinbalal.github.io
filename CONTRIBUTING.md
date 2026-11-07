@@ -54,8 +54,28 @@ Your game page should have:
 - Your game name inside `<title>`. It is used as the name for the game on the website.
 - This line in the `<head>`, so it works on phones:
 
+You can start from this:
+
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Game Name</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>My Game Name</h1>
+
+    <!-- Your game goes here -->
+
+    <h2>How to play</h2>
+    <p>Write the controls here.</p>
+
+    <script src="script.js"></script>
+</body>
+</html>
 ```
 
 - Only works with your files:
