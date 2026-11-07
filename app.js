@@ -58,7 +58,7 @@ async function loadGames() {
                 link.href = game.url;
                 link.target = '_blank';                  // opens in a new tab
                 link.rel = 'noopener noreferrer';
-                link.textContent = 'Play →';
+                link.textContent = 'Play';
 
                 card.append(info, link);
                 gameList.appendChild(card);
@@ -89,7 +89,7 @@ async function loadGames() {
                 link.href = person.profile;
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
-                link.textContent = 'View profile →';
+                link.textContent = 'View profile';
 
                 info.append(name, link);
                 card.append(avatar, info);
