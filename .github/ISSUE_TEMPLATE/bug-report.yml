@@ -1,0 +1,23 @@
+name: Bug report
+description: A game or the website is not working
+labels: ["bug"]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Where is the problem?
+      description: The game name or the page link.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Tell us what you did, what you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and browser
+      placeholder: "Example: Android phone, Chrome"
