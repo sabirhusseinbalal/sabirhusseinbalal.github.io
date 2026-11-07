@@ -1,0 +1,11 @@
+name: Question or idea
+description: Ask a question or share an idea for the project
+labels: ["question"]
+body:
+  - type: textarea
+    id: message
+    attributes:
+      label: What would you like to ask or suggest?
+      description: No question is too small.
+    validations:
+      required: true
