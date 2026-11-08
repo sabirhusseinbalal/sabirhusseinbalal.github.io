@@ -1,6 +1,11 @@
 {
     "games": [
         {
+            "name": "Guess Number Game",
+            "author": "it4chiuchiha",
+            "url": "games/it4chiuchiha/guess-number/"
+        },
+        {
             "name": "Tic-Tac-Toe",
             "author": "sabirhusseinbalal",
             "url": "games/sabirhusseinbalal/tic-tac-toe/"
@@ -8,10 +13,14 @@
     ],
     "contributors": [
         {
+            "username": "it4chiuchiha",
+            "profile": "https://github.com/it4chiuchiha"
+        },
+        {
             "username": "sabirhusseinbalal",
             "profile": "https://github.com/sabirhusseinbalal"
         }
     ],
-    "totalGames": 1,
-    "totalContributors": 1
+    "totalGames": 2,
+    "totalContributors": 2
 }
