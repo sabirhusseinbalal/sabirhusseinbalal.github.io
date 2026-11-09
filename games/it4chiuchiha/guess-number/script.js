@@ -40,3 +40,4 @@
 
       checkbtn.addEventListener("click", checkGuess);
       reset.addEventListener("click", resetGame);
+      
