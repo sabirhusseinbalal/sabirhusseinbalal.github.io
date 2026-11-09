@@ -6,7 +6,7 @@
 
 Welcome to Small Browser Games!
 
-This is an open-source project to share simple browser games created in HTML, CSS and JavaScript.
+This is an open-source project to contribute to and share simple browser games built with HTML, CSS and JavaScript.
 
 You don't have to be a computer programming expert. This is also for beginners!
 
