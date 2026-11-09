@@ -14,6 +14,68 @@
     <meta name="theme-color" content="#0d0d0d" />
 
     <link rel="stylesheet" href="style.css" />
+    <style>
+      a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.page {
+    width: 100%;
+    max-width: 1350px;
+    min-height: 90vh;
+    margin: auto;
+    padding: 25px;
+
+    background: var(--background);
+    border-radius: 25px;
+
+    position: relative;
+    z-index: 1;
+}
+
+
+/* NAVIGATION */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 30px;
+
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.logo {
+    color: var(--red);
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.header nav {
+    display: flex;
+    gap: 30px;
+}
+
+.header nav a {
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.header nav a:hover {
+    color: var(--red);
+}
+    </style>
 
     <meta
       property="og:title"
