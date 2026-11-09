@@ -14,34 +14,13 @@
           I’m thinking of a secret number between <strong>1</strong> and <strong>100</strong>. Try to guess it!
         </p>
 
-<form class="controls" id="guess-form" novalidate>
-    <label class="sr-only" for="guess">
-        Your guess (1 to 100)
-    </label>
+        <form class="controls" onsubmit="return false;">
+          <input id="guess" class="guess-input" type="number" min="1" max="100" placeholder="Your guess..." />
+          <button class="check-btn" type="button" id="checkbtn">Check</button>
+        </form>
 
-    <input
-        id="guess"
-        class="guess-input"
-        type="number"
-        min="1"
-        max="100"
-        step="1"
-        placeholder="Your guess..."
-        aria-describedby="msg"
-    />
-
-    <button class="check-btn" type="submit" id="checkbtn">
-        Check
-    </button>
-</form>
-
-<div class="message" id="msg" role="status" aria-live="polite">
-    Start guessing...
-</div>
-
-<button class="again-btn" id="reset" type="button">
-    Reset Game
-</button>
+        <div class="message" id="msg">Start guessing...</div>
+        <button class="again-btn" id="reset">Reset Game</button>
       </section>
 
       <aside class="card right">
