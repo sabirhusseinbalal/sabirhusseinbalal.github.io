@@ -32,6 +32,13 @@ jobs:
           head = os.environ["HEAD_SHA"]
           author = os.environ["AUTHOR"].lower()
 
+          def exists_in_base(path):
+              result = subprocess.run(
+                  ["git", "cat-file", "-e", f"{base}:{path}"],
+                  capture_output=True
+              )
+              return result.returncode == 0
+
           changed = subprocess.run(
               ["git", "diff", "--name-only", f"{base}...{head}"],
               capture_output=True, text=True, check=True
@@ -51,8 +58,8 @@ jobs:
               errors.append("A pull request must add or change exactly one game.")
 
           for user, game in games:
-              if user != author:
-                  errors.append(f"Folder games/{user} must match your GitHub username ({author}).")
+              if user != author and not exists_in_base(f"games/{user}/{game}"):
+                  errors.append(f"A new game must go in your own folder: games/{author}/ (you used games/{user}/).")
 
               if not re.fullmatch(r"[a-z0-9-]+", game):
                   errors.append(f"Game folder name '{game}' must use lowercase letters, numbers and hyphens only.")
