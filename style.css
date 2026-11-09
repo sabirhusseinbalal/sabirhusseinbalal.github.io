@@ -17,6 +17,8 @@ html {
     --muted: #aaaaaa;
 }
 
+/* BODY */
+
 body {
     min-height: 100vh;
     padding: 20px;
@@ -26,95 +28,6 @@ body {
 
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
-}
-
-
-/* CONTRIBUTORS */
-
-.contributors {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-}
-
-.contributor {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-
-    padding: 22px;
-
-    background: var(--card);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-
-    transition: 0.3s;
-}
-
-.contributor:hover {
-    border-color: var(--red);
-    transform: translateY(-4px);
-}
-
-.contributor h3 {
-    font-size: 17px;
-    margin-bottom: 8px;
-}
-
-.contributor p {
-    color: var(--muted);
-    font-size: 14px;
-}
-
-.contributor a {
-    color: var(--red);
-}
-
-.contributor img {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--red);
-    flex-shrink: 0;
-}
-
-/* ABOUT SECTION */
-
-.about-section {
-    text-align: center;
-    max-width: 800px;
-}
-
-.about-section h2 {
-    margin-bottom: 20px;
-}
-
-.about-section p,
-.contribute-section p {
-    color: var(--muted);
-    font-size: 16px;
-    line-height: 1.8;
-    margin-bottom: 15px;
-}
-
-
-/* CONTRIBUTION SECTION */
-
-.contribute-section {
-    max-width: 850px;
-    margin: 40px auto 60px;
-    padding: 55px 25px;
-
-    text-align: center;
-
-    background: var(--card);
-    border: 1px solid rgba(230, 57, 70, 0.25);
-    border-radius: 15px;
-}
-
-.contribute-section .button {
-    margin-top: 15px;
 }
 
 
