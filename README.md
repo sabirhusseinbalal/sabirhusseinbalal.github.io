@@ -10,6 +10,9 @@ This is an open-source project to contribute to and share simple browser games b
 
 You don't have to be a computer programming expert. This is also for beginners!
 
+**YouTube Video:**
+[[How to Contribute to Open Source on GitHub (Beginner Friendly) | Fork, Clone & Pull Request]([https://youtu.be/d3NOSTWauDo?si=eN_lZZdLn640bh8e](https://youtu.be/l3PtG1v9hZQ?si=nj7w2jtwHiv1uj3n)/)]
+
 ## What can you build?
 
 Any simple browser game. For example:
