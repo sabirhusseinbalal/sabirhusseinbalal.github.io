@@ -143,6 +143,3 @@ Visit the website:
 
 [View on GitHub](https://github.com/sabirhusseinbalal/sabirhusseinbalal.github.io)
 
----
-
-Made with ❤️ by people who enjoy building games.
