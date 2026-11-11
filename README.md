@@ -121,7 +121,7 @@ The full list is in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Many thanks to all who have supported this project!
 
-[![Contributors](https://contrib.rocks/image?repo=sabirhusseinbalal/sabirhusseinbalal.github.io&exclude=renoschubert,github-actions[bot]&v=99)](https://github.com/sabirhusseinbalal/sabirhusseinbalal.github.io/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=sabirhusseinbalal/sabirhusseinbalal.github.io&v=1)](https://github.com/sabirhusseinbalal/sabirhusseinbalal.github.io/graphs/contributors)
 
 ## Code of Conduct
 
