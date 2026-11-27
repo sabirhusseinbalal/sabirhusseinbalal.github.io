@@ -25,16 +25,27 @@
         color: #f5f5f5;
         text-align: center;
       }
+
+      
+:root {
+    --red: #e63946;
+    --background: #0d0d0d;
+    --card: #171717;
+    --text: #ffffff;
+    --muted: #aaaaaa;
+}
+
+
       .box {
         max-width: 480px;
       }
       h1 {
         font-size: 64px;
         margin: 0 0 8px;
-        color: #e63946;
+        color: var(--red);
       }
       p {
-        color: #b3b3b3;
+        color: var(--muted);
         line-height: 1.6;
         margin: 0 0 24px;
       }
@@ -44,20 +55,44 @@
         justify-content: center;
         flex-wrap: wrap;
       }
-      a {
-        display: inline-block;
-        padding: 12px 20px;
-        border-radius: 8px;
+
+      a.button{
         text-decoration: none;
-        font-weight: 600;
-        background: #e63946;
-        color: #fff;
       }
-      a.secondary {
-        background: transparent;
-        border: 1px solid #444;
-        color: #fff;
-      }
+
+.button {
+    display: inline-block;
+    padding: 13px 25px;
+
+    border: 2px solid var(--red);
+    border-radius: 7px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.button.primary {
+    background: var(--red);
+    color: white;
+}
+
+.button.primary:hover {
+    background: transparent;
+    transform: translateY(-3px);
+}
+
+.button.secondary {
+    background: transparent;
+    color: white;
+}
+
+.button.secondary:hover {
+    background: var(--red);
+    transform: translateY(-3px);
+}
+
     </style>
   </head>
   <body>
@@ -65,8 +100,8 @@
       <h1>404</h1>
       <p>That page or game path doesn't exist. Maybe a link had a typo or moved.</p>
       <div class="actions">
-        <a href="/">Go Home</a>
-        <a class="secondary" href="/#games">See Games</a>
+        <a href="/" class="button primary">Go Home</a>
+        <a class="button secondary" href="/#games">See Games</a>
       </div>
     </div>
   </body>
